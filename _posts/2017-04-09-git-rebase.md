@@ -32,9 +32,9 @@ git rebase [-i | --interactive] [options] [--exec <cmd>] [--onto <newbase>]
 ## ПРИМЕРЫ
 
 1. Неважно в какой мы ветке.
-```
+`
 git rebase --onto MW-1655 new-feature~4 new-feature -i
-```
+`
      Четыре последних коммита из **new-feature** будут перенесены в конец ветки **MW-1655** и результат сохранится в **new-feature**.
 
 2. _Мы в new-feature._
