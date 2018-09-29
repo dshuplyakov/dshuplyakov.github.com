@@ -52,7 +52,7 @@ Cassandra представляет собой гибрид между key-value 
 
 В таблице ниже *reservations_by_hotel_date* - таблица источник, *reservations_by_confimation* – МП.
 
-![](/img/cassandra_mv.png)
+![cassandra_mv]({{ site.baseurl }}/images/cassandra_mv.png)
 
 В Кассандре версии 3.0 есть неприятные ограничения при использовании МП. Одно из них связано с невозможностью использовать несколько первичных ключей в МП https://issues.apache.org/jira/browse/CASSANDRA-9928, второе – с отсутствием агрегации https://issues.apache.org/jira/browse/CASSANDRA-9778.
 
