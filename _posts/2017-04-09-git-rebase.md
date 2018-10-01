@@ -19,8 +19,9 @@ git rebase [-i | --interactive] [options] [--exec <cmd>] [--onto <newbase>]
 ```
 
 Наглядно работа команды выглядит следующим образом (__git rebase feature/JIRA-123 --onto master__)
-    
-![git-rebase-process]({{ site.baseurl }}/images/git-rebase-process.gif)
+
+![git-rebase]({{ site.baseurl }}/images/git-rebase-process.gif)
+
 Иллюстрация взята с _https://hackernoon.com/git-in-2016-fad96ae22a15_
 
 Особенности команды: 
@@ -105,7 +106,7 @@ pick f4cb17f JRD-2051 Use snapshot dependencies for testing
 # d, drop = remove commit
 ```
 
-Отредактировав файл таким образом, чтобы перед коммитов стояла нужна команда, можно отредактировать коммиты. После внесения изменений  сохранить файл и закройте редактор.
+Отредактировав файл таким образом, чтобы перед коммитами стояли нужные команды, сохранить файл и закройте редактор. 
 
 
 ## Ссылки:
