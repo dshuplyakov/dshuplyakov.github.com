@@ -3,9 +3,12 @@ title: Шпаргалки Git rebase
 date: 2017-04-09 11:39:18
 tags: git
 ---
-**Rebase** - одна и самых известных и в то же время недооценненых команд в гите. А ведь это та команда, которая позволяет управлять коммитами легко и удобно, насколько это, конечно, возможно в консоле. При этом на освоение команды достаточно 20-30 минут. 
+**git rebase** - команда предназначенная для редактирования коммитов в git. Часто ее воспринимают как альтернативу команде git merge, однако это не так. Хотя команда и позволяет переносить коммиты, мержить в ветку все равно придется обычной командой merge. 
 
-## Описание работы команды
+## Перенос коммитов (rebase)
+Основной режим работы команды - это перенос коммитов. Перенос коммитов позволяет выбрать группу коммитов и перенести (пересадить) их в конец ветки. Такой перенос коммитов позволяет решить следущую возникающую задачу - получить в feature-ветке изменения сделанные в master. Такая ситуация возникает когда над проектом работает больше одного человека. Второй разработчик успевает замержить свои изменения раньше ваших, и вам остается либо подмерживать мастер-ветку себе, либо пользоваться командой rebase. Подмерживание коммитов приводит к усложенению истории и созданию лишних merge-коммитов. Если же воспользоваться командой rebase, то ваши изменения логически и хронологически будут расположены после коммитов коллеги.
+
+
 Формат команды:
 ```
 git rebase [-i | --interactive] [options] [--exec <cmd>] [--onto <newbase>]	
@@ -15,7 +18,11 @@ git rebase [-i | --interactive] [options] [--exec <cmd>] [--onto <newbase>]
 	--root [<branch>]
 ```
 
-Кратко сформулировать задачу команды можно следующим образом: **rebase** выполняет перенос набора коммитов в конец ветки. В том как она это делает есть ряд особенностей: 
+    Наглядно работа команды выглядит следующим образом (__git rebase feature/JIRA-123 --onto master__)
+![git-rebase-process]({{ site.baseurl }}/images/git-rebase-process.gif)
+Иллюстрация взята с _https://hackernoon.com/git-in-2016-fad96ae22a15_
+
+Особенности команды: 
 
 - коммиты переносятся ТОЛЬКО в конец ветки;
 - изменения полученные после ребейза отобразятся в текущей ветке (т.е. модифицируется только текущая ветка);
@@ -25,11 +32,9 @@ git rebase [-i | --interactive] [options] [--exec <cmd>] [--onto <newbase>]
 - есть вот такой интересный коммент в доке, касающийся последнего параметра: If <branch> is specified, git rebase will perform an automatic git checkout <branch> before doing anything else. Otherwise it remains on the current branch;
 - ОСНОВНОЕ ПРАВИЛО, ЧТО КОММИТЫ КОТОРЫЕ будут переноситься - НАХОДЯТСЯ В текущей ветке, либо в ветке которая указана последним параметром (и которая при выполнении ребейза зачекаучится);
 
-    Наглядно работа команды выглядит следующим образом (__git rebase feature/JIRA-123 --onto master__)
-![git-rebase-process]({{ site.baseurl }}/images/git-rebase-process.gif)
-Иллюстрация взята с _https://hackernoon.com/git-in-2016-fad96ae22a15_
 
-## ПРИМЕРЫ
+
+## Примеры
 
 1. Неважно в какой мы ветке.
 ``
@@ -71,21 +76,36 @@ git rebase -i  --onto develop 2.8.2.3
 
 - взять все коммиты с **2.8.2.3** и помещает их поверх **develop**
 - естественно должен быть общий предок между **2.8.2.3** и **develop** чтобы понятно было какие коммиты брать
-     
-## Интерактивный режим команды
 
-Включается флагом -i и позволяет выполнить дополнительные действия над пересаживаемым набором коммитов. 
+## Редактирование коммитов
+Второй режим использования git rebase - это использование интерактивного режима в котором можно отредатировать коммиты.
+Интерактивный режим включается флагом -i. 
 
-Список действий:
+Пример:
+
 ```
-p, pick = use commit
-r, reword = use commit, but edit the commit message
-e, edit = use commit, but stop for amending
-s, squash = use commit, but meld into previous commit
-f, fixup = like "squash", but discard this commit's log message
-x, exec = run command (the rest of the line) using shell
-d, drop = remove commit
+git rebase -i  HEAD~2
 ```
+После чего отроется окно примерно с таким содержимым:
+
+```
+pick 1ad0144 JRD-2055 Release patch 1.3.5
+pick f4cb17f JRD-2051 Use snapshot dependencies for testing
+
+# Rebase 3a30ceb..f4cb17f onto 3a30ceb (5 commands)
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like "squash", but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+# d, drop = remove commit
+```
+
+Отредактировав файл таким образом, чтобы перед коммитов стояла нужна команда, можно отредактировать коммиты. После внесения изменений  сохранить файл и закройте редактор.
+
 
 ## Ссылки:
 https://hackernoon.com/git-in-2016-fad96ae22a15
