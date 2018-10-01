@@ -22,9 +22,11 @@ git rebase [-i | --interactive] [options] [--exec <cmd>] [--onto <newbase>]
 
 ![git-rebase]({{ site.baseurl }}/images/git-rebase-process.gif)
 
-Иллюстрация взята с _https://hackernoon.com/git-in-2016-fad96ae22a15_
+* Иллюстрация взята с _https://hackernoon.com/git-in-2016-fad96ae22a15_
+В данном 2 коммита будут пересажены в конец ветки master и результат сохранится в feature/JIRA-123
 
-Особенности команды: 
+
+###Особенности команды: 
 
 - коммиты переносятся ТОЛЬКО в конец ветки;
 - изменения полученные после ребейза отобразятся в текущей ветке (т.е. модифицируется только текущая ветка);
@@ -36,12 +38,12 @@ git rebase [-i | --interactive] [options] [--exec <cmd>] [--onto <newbase>]
 
 
 
-## Примеры
+### Примеры
 
 1. Неважно в какой мы ветке.
-`
+``
 git rebase --onto MW-1655 new-feature~4 new-feature -i
-`
+``
      Четыре последних коммита из **new-feature** будут перенесены в конец ветки **MW-1655** и результат сохранится в **new-feature**.
 
 2. _Мы в new-feature._
