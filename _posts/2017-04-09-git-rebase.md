@@ -10,13 +10,13 @@ tags: git
 
 
 Формат команды:
-```
+`
 git rebase [-i | --interactive] [options] [--exec <cmd>] [--onto <newbase>]	
     [<upstream> [<branch>]]
 
 git rebase [-i | --interactive] [options] [--exec <cmd>] [--onto <newbase>]
 	--root [<branch>]
-```
+`
 
 Наглядно работа команды выглядит следующим образом (__git rebase feature/JIRA-123 --onto master__)
 
@@ -39,41 +39,39 @@ git rebase [-i | --interactive] [options] [--exec <cmd>] [--onto <newbase>]
 ## Примеры
 
 1. Неважно в какой мы ветке.
-``
+`
 git rebase --onto MW-1655 new-feature~4 new-feature -i
-``
+`
      Четыре последних коммита из **new-feature** будут перенесены в конец ветки **MW-1655** и результат сохранится в **new-feature**.
 
 2. _Мы в new-feature._
-```
+`
  git rebase --onto MW-1655 new-feature~4 -i
-```
+`
      Результат будет тот же. Т.к. мы вытаскиваем последние 4 коммита, то последний параметр можно опустить.
 
 3. _Мы в feature._
-```
-git rebase master
-```
+`git rebase master`
      Взять за основую **master**, и заребейзить поверх **feature**. Изменения в ветке **feature**.
 
 4. _Мы в feature_
-```
+`
 git rebase master feature
-```
+`
      То же самое, что и выше.
 
 5. _Неважно в какой мы ветке._
-```
+`
 git rebase --onto develop MW-1572~1 MW-1572 -i
-```
+`
 - сделать чекаут ветки **MW-1572**
 - применить последний коммит из ветки **MW-1572** в конец develop
 - результат поместить в **MW-1572**
 
 6. _Мы в 2.8.2.3_
-```
+`
 git rebase -i  --onto develop 2.8.2.3
-```
+`
      очень похожа на предыдущую команду.
 
 - взять все коммиты с **2.8.2.3** и помещает их поверх **develop**
@@ -85,12 +83,12 @@ git rebase -i  --onto develop 2.8.2.3
 
 Пример:
 
-```
+`
 git rebase -i  HEAD~2
-```
+`
 После чего отроется окно примерно с таким содержимым:
 
-```
+`
 pick 1ad0144 JRD-2055 Release patch 1.3.5
 pick f4cb17f JRD-2051 Use snapshot dependencies for testing
 
@@ -104,7 +102,7 @@ pick f4cb17f JRD-2051 Use snapshot dependencies for testing
 # f, fixup = like "squash", but discard this commit's log message
 # x, exec = run command (the rest of the line) using shell
 # d, drop = remove commit
-```
+`
 
 Отредактировав файл таким образом, чтобы перед коммитами стояли нужные команды, сохранить файл и закройте редактор. 
 
