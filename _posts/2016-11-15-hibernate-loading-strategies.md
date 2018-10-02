@@ -14,7 +14,7 @@ date: 2016-11-15 14:26:33
 
 <!-- more -->
 
-Каждая из стратегий не лишена недостатков и достоинств. Рассмотрим их на примере интернет-магазина. Представим, что для наш интернет магазин продает только книги и пользователи могут комментировать их. В базе будет всего 2 таблицы book (книги) и comments (комментарии).
+Каждая из стратегий не лишена недостатков и достоинств. Рассмотрим их на примере интернет магазина. Представим, что наш интернет магазин продает только книги, а пользователи могут оставлять к ним комментарии. В базе будет всего 2 таблицы book и comment.
 
 Доменные объекты опишем так:  
 
@@ -29,7 +29,8 @@ public class SelectBook implements java.io.Serializable {
     String title;    
     String author;    
     Set<SelectComment> comments;
-//getters, setters, etc...
+    
+//getters, setters...
 ```
 
 ```
@@ -44,30 +45,32 @@ public class SelectComment {
 
     @ManyToOne
     SelectBook book;
-    String text;
+    String text;    
+    
+//getters, setters...
 ```
 
 Данные которые лежат в БД:
 
-Книги
+Таблица __book__
 
-| book_id | author         | title                              |
+| *book_id* | author         | title                              |
 |---------|----------------|------------------------------------|
 | 46      | J. K. Rowling  | Garry Potter                       |
 | 47      | Joseph Heller  | Catch-22: 50th Anniversary Edition |
 | 48      | J.R.R. Tolkien | The Lord of the Rings              |
 
 
-Комментарии
+Таблица __comment__
 
 | comment_id | text                                                                                                                                     | comment_id |
-|----|------------------------------------------------------------------------------------------------------------------------------------------|------------|
-| 1  | Best book I have ever read!                                                                                                              | 46         |
-| 2  | Whoever wants a lovely interesting fantasy book I strongly suggest Harry Potter                                                          | 46         |
-| 3  | I've loved Harry Potter since it first came out. I have all the books physically and now on my tablet, as well as all the movies on DVD. | 46         |
-| 4  | Great read even for the second time!                                                                                                     | 47         |
-| 5  | I love it                                                                                                                                | 47         |
-| 6  | Life is a comedy to those who think, and a tragedy to those who feel.                                                                    | 47         |
+|----|-------------------------------------------------------------------------------------------------------------|------------|
+| 1  | Best book I have ever read!                           | 46         |
+| 2  | Whoever wants a lovely interesting...                 | 46         |
+| 3  | I've loved Harry Potter since it first came out...    | 46         |
+| 4  | Great read even for the second time!                  | 47         |
+| 5  | I love it       | 47         |
+| 6  | Life is a comedy to those who think, and a tragedy...       | 47         |
 
 ## Select
 Это самая распространенная стратегия загружки дочерних данных, именно ее используется хибернейт по умолчанию, если стратегия загрузки не указана явно. Она выполняет загрузку  дочерней коллекций с помощью отдельного select запроса. 
