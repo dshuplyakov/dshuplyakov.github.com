@@ -4,12 +4,9 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
-
 ### More Information
-
-A place to include any other types of information that you'd like to include about yourself.
+Блог - место в котором я собираю полезную информацию. Что здесь можно найти? Сюда попадает как просто справочная информация, которую сложно держать в голове, а так же результаты моих экспериментов, исследований, опыта.
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[dmitry1405{at}gmail.com]
