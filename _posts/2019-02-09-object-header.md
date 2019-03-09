@@ -34,12 +34,21 @@ date: 2019-02-09 23:00:00
 |                                              | lock:2 |      OOP to metadata object    |    Marked for GC   | 5)
 |-------------------------------------------------------|--------------------------------|--------------------|      
 ```
-identity_hashcode - хешкод объекта, вызывается лениво.  
-age - число пережитых сборок мусора объектом 4 бита => максимум может достигать 15  
-biased_lock - признак легкой блокировки на объект (true/false)  
-lock - 0 если это thin-блокировка, 1 - если это fat блокировка  
-ptr_to_lock_record - указатель на монитор  
-ptr_to_heavyweight_monitor - указатель на монитор  
+- identity_hashcode - хешкод объекта, вызывается лениво.  
+- age - число пережитых сборок мусора объектом 4 бита => максимум может достигать 15  
+- biased_lock - признак легкой блокировки на объект (true/false)  
+- lock - 0 если это thin-блокировка, 1 - если это fat блокировка  
+- ptr_to_lock_record - указатель на монитор в java
+- ptr_to_heavyweight_monitor - указатель на монитор в ОС
+
+
+*bitfields*  | tag  bits  | state
+hash age 0  | `01` |  unlocked
+thread id epoch age 1  | 01  | biasable
+ptr to lock record  | 00  | lightweight locked
+ptr to heavyweight monitor  | 10  | inflated
+ | 11  | marked for gc
+
 
 1) Новый объект, в нем зарезервировано 25 байт на identityHashcode. Блокировка на объекте не вызывалась. Но если на объекте позвали identity hashcode, забайсить (biased) на него больше никогда будет нельзя.  
 2) biased - легкая блокировка на уровне Java, используется если с объектом работает один поток. В этом случае захват происходит без накладных расходов.  
