@@ -42,14 +42,19 @@ date: 2019-02-09 23:00:00
 - ptr_to_heavyweight_monitor - указатель на монитор в ОС
 
 
-*bitfields*  | tag  bits  | state
+*bitfields* | tag  bits | state
 --- | --- | ---
 hash age 0  | `01` |  unlocked
-thread id epoch age 1  | 01  | biasable
-ptr to lock record  | 00  | lightweight locked
-ptr to heavyweight monitor  | 10  | inflated
- | 11  | marked for gc
+thread id epoch age 1  | 01 | biasable
+ptr to lock record  | 00 | lightweight locked
+ptr to heavyweight monitor  | 10 | inflated
+--- | 11 | marked for gc
 
+| Таблицы       | Это                | Круто |
+| ------------- |:------------------:| -----:|
+| столбец 3     | выровнен вправо    | $1600 |
+| столбец 2     | выровнен по центру |   $12 |
+| зебра-строки  | прикольные         |    $1 |
 
 1) Новый объект, в нем зарезервировано 25 байт на identityHashcode. Блокировка на объекте не вызывалась. Но если на объекте позвали identity hashcode, забайсить (biased) на него больше никогда будет нельзя.  
 2) biased - легкая блокировка на уровне Java, используется если с объектом работает один поток. В этом случае захват происходит без накладных расходов.  
