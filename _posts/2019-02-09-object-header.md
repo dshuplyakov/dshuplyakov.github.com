@@ -43,6 +43,7 @@ date: 2019-02-09 23:00:00
 
 
 *bitfields*  | tag  bits  | state
+--- | --- | ---
 hash age 0  | `01` |  unlocked
 thread id epoch age 1  | 01  | biasable
 ptr to lock record  | 00  | lightweight locked
