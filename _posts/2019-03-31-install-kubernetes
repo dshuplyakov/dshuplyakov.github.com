@@ -1,0 +1,113 @@
+---
+title: Быстрая установка Kubernetes с админкой на RHEL
+author: Дмитрий Шупляков
+tags: Kubernetes
+date: 2019-03-31 13:54:00
+---
+
+Инструкция для установки кубернетиса на одной мастер-ноде, с возможностью запуска на ней подов.
+<!-- more --> 
+
+Первым дело обновляем пакеты и репозитории:
+```bash
+sudo su
+yum upgrade -y
+```
+
+Устанавливаем docker
+```bash
+yum install -y docker
+```
+Добавляем докер в автозапуск:
+```bash
+systemctl enable docker 
+```
+Cgroups у докера и кубернетиса должны совпадать. Кубернетис по умолчанию запукается из под cgroupsfs, а докер из под systemd. Меняем у докера:
+В файле /usr/lib/systemd/system/docker.service ищем строку 
+
+```bash
+--exec-opt native.cgroupdriver=systemd \
+```
+и заменяем systemd на cgroupfs.
+
+Проверяем, что изменения применились:
+```bash
+docker info
+```
+Должна быть строчка:
+```bash
+Cgroup Driver: cgroupfs
+```
+
+Для кубернетиса необходимо выключить своп:
+```bash
+swapoff -a
+```
+И не забываем удалить строчку со подключением свопа из /etc/fstab
+
+Отлично! Начинаем ставим кубик:
+```bash
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+setenforce 0
+yum install -y kubelet kubeadm kubectl
+systemctl enable kubelet && systemctl start kubelet
+```
+
+У меня установились следующие версии:
+Installed:
+  kubeadm.x86_64 0:1.14.0-0                       kubectl.x86_64 0:1.14.0-0                       kubelet.x86_64 0:1.14.0-0
+
+Далее необходимо выйти из под рута, и под обычным пользователем выполнить:
+```bash
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+Этой командой конфиг кубика копируется в личную папку пользователя в файл config.
+Если команда выполнилось с ошибкой и файла /etc/kubernetes/admin.conf нет. Проверяем, смогла служба kubelet запуститься ``systemctl status kubelet``
+Если нет, то запускаем вручную и смотрим, какие ошибки:
+```bash
+kubelet
+```
+
+Разрешаем подам запускаться на мастере:
+```bash
+kubectl taint nodes --all node-role.kubernetes.io/master- 
+```
+
+== Установка админки
+
+Скачиваем файл
+```bash
+wget https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
+```
+Редактируем секцию args, добавляя строки в файл kubernetes-dashboard.yaml:
+```bash
+          - --enable-skip-login
+          - --enable-insecure-login
+```
+Запускаем POD:
+```bash
+kubectl create -f kubernetes-dashboard.yaml
+```
+
+Меняем тип POD'a, как это сделать - читаем здесь https://github.com/kubernetes/dashboard/wiki/Accessing-Dashboard---1.7.X-and-above
+
+И запускаем прокси, чтобы можно было снаружи зайти в админку (вместо 172.30.179.137 подставляем ip-адрес машины):
+```bash
+kubectl proxy --accept-hosts='^.*' --address=172.30.179.137
+```
+
+Теперь можно админка доступка по адресу:
+http://172.30.179.137:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login
+
+Чтобы зайти внутрь, нажимаем кнопку *SKIP*
+
