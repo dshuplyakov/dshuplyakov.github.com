@@ -107,7 +107,7 @@ kubectl proxy --accept-hosts='^.*' --address=172.30.179.137
 ```
 
 Теперь админка доступна по адресу:
-[http://172.30.179.137:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login]
+[http://172.30.179.137:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login](http://172.30.179.137:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login)
 
-Чтобы зайти внутрь, нажимаем кнопку *SKIP*
+Чтобы зайти внутрь, нажимаем кнопку *SKIP*.
 
