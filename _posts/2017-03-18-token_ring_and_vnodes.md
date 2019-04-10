@@ -1,6 +1,6 @@
 ---
 title: Token ring и виртуальные ноды
-author: Дмитрий Шупляков
+author: Dmitry Shuplyakov
 tags: Cassandra
 date: 2017-03-18 22:21:10
 ---
