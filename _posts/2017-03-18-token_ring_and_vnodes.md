@@ -37,3 +37,4 @@ date: 2017-03-18 22:21:10
 
 ### Ссылки
 1. https://www.datastax.com/dev/blog/virtual-nodes-in-cassandra-1-2
+2. https://stackoverflow.com/questions/38423888/significance-of-vnodes-in-cassandra
