@@ -1,5 +1,5 @@
 ---
-title: Data-центры, стойки, snitches
+title: Cassandra. Часть 2: DC, rack, snitch
 author: Dmitry Shuplyakov
 tags: Cassandra
 date: 2017-03-18 22:21:10
