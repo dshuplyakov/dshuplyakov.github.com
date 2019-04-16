@@ -1,5 +1,5 @@
 ---
-title: Token ring & Vnodes
+title: Cassandra. Часть 3: Token ring & Vnodes
 author: Dmitry Shuplyakov
 tags: Cassandra
 date: 2017-03-18 22:21:10
