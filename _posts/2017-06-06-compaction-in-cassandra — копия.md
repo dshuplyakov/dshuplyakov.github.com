@@ -1,5 +1,5 @@
 ---
-title: Compaction в Cassandra
+title: Cassandra. Часть 4: Compaction
 author: Дмитрий Шупляков
 date: 2017-06-06 09:36:15
 tags: cassandra
