@@ -1,5 +1,5 @@
 ---
-title: Cassandra. Часть 2: DC, rack, snitch
+title: Cassandra. Часть 2. DC, Rack, Snitch
 author: Dmitry Shuplyakov
 tags: Cassandra
 date: 2017-03-18 22:21:10
