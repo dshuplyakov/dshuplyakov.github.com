@@ -1,5 +1,5 @@
 ---
-title: Cassandra. Часть 1: Проектирование данных
+title: Cassandra. Часть 1. Проектирование данных
 author: Дмитрий Шупляков
 tags: Cassandra
 date: 2017-03-04 20:39:08
