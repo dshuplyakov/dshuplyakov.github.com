@@ -1,5 +1,5 @@
 ---
-title: Cassandra. Часть 5 \: Writepath.
+title: Cassandra. Часть 5. Writepath.
 author: Дмитрий Ламанш
 date: 2017-04-10 22:32:39
 tags:
