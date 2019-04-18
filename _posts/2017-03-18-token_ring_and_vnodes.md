@@ -43,3 +43,5 @@ date: 2017-03-18 22:21:10
 1. https://www.datastax.com/dev/blog/virtual-nodes-in-cassandra-1-2
 2. https://stackoverflow.com/questions/38423888/significance-of-vnodes-in-cassandra
 3. http://thelastpickle.com/blog/2019/01/30/new-cluster-recommendations.html
+4. https://danielparker.me/cassandra/vnodes/tokens/increasing-vnodes-cassandra/
+5. https://www.datastax.com/dev/blog/token-allocation-algorithm
