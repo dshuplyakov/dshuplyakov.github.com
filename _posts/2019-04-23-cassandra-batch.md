@@ -42,5 +42,5 @@ tags:
 ##COUNTER
 
 ##Ссылки
-
-https://stackoverflow.com/questions/28348717/how-do-atomic-batches-work-in-cassandra/28348718#28348718
+1. https://stackoverflow.com/questions/28348717/how-do-atomic-batches-work-in-cassandra/28348718#28348718
+2. https://github.com/apache/cassandra/blob/cassandra-3.11/src/java/org/apache/cassandra/batchlog/BatchlogManager.java
